@@ -1,0 +1,50 @@
+<template>
+<div class="page" data-name="news">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="if-not-md">Back</span>
+        </a>
+      </div>
+      <div class="title">News</div>
+         <div class="right">
+                            <a href="#" class="link icon-only panel-open" data-panel="left">
+                                <i class="icon f7-icons if-not-md">menu</i>
+                                <i class="icon material-icons md-only">menu</i>
+                            </a>
+                        </div>
+    </div>
+  </div>
+  <div class="page-content ptr-content theme-dark" data-ptr-mousewheel="true" @ptr:refresh="loadMore" style="background-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4542191876750701) 0%, rgba(0,0,0,0.44861694677871145) 50%), url(img/news.jpg); background-size: cover;">
+      <div class="ptr-preloader">
+    <div class="preloader"></div>
+    <div class="ptr-arrow"></div>
+  </div>
+    <div class="list media-list" style="background-color: transparent;">
+  <div class="block" id="newsitem" style="background-color: transparent;">
+    
+
+  </div>
+</div>
+  </div>
+</div>
+</template>
+<script>
+  return {
+   
+    methods: {
+      loadMore: function (e, done) {
+
+        setTimeout(function () {
+         alert("working");
+          // Done
+          done();
+        }, 1000);
+      }
+    }
+  }
+</script>
+

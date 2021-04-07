@@ -1,0 +1,65 @@
+<template>
+  <div class="page" style="background-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.4) 50%), url(img/blueparticle.gif); background-size: cover;">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Query</div>
+           <div class="right">
+                            <a href="#" class="link icon-only panel-open" data-panel="left">
+                                <i class="icon f7-icons if-not-md">menu</i>
+                                <i class="icon material-icons md-only">menu</i>
+                            </a>
+                        </div>
+      </div>
+    </div>
+    <div class="page-content theme-dark" style="background-color: transparent;">
+        <div class="block">
+                            <image src="img/query.png" width="45%" height="8%" class="center" />
+                        </div>
+                        <form>
+                            <div class="list" style="background-color: transparent;">
+                                <ul style="background-color: transparent;">
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label" style="font-size: 120%; color: white;"><b>Email</b></div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="qmail" id="qmail" placeholder="Your email">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label" style="font-size: 120%; color: white;"><b>Title</b></div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="qtitle" id="qtitle" placeholder="Your question">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label" style="font-size: 120%; color: white;"><b>Query</b></div>
+                                            <div class="item-input-wrap">
+                                                <textarea placeholder="Description" id="qdesc" name="qdesc"></textarea>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </form>
+                        <div class="block">
+                            <div class="row">
+                                <div class="col"><button class="col button button-large button-raised button-fill color-green" onclick="send()">Send</button></div>
+                                <div class="col"><button class="col button button-large button-raised button-fill color-red" onclick="clear2()">Clear</button></div>
+                            </div>
+                        </div>
+    </div>
+  </div>
+</template>
+

@@ -1,0 +1,144 @@
+<template>
+    <div class="page" style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0.5270483193277311) 0%, rgba(255, 255, 255, 0.5130427170868348) 50%), url(img/signup2.jpg); background-size: cover;">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                    </a>
+                </div>
+                <div class="title">Sign Up</div>
+                 <div class="right">
+                            <a href="#" class="link icon-only panel-open" data-panel="left">
+                                <i class="icon f7-icons if-not-md">menu</i>
+                                <i class="icon material-icons md-only">menu</i>
+                            </a>
+                        </div>
+            </div>
+        </div>
+        <div class="page-content login-screen-content" style="background-color: transparent;">
+
+            <div class="block">
+                            <image src="img/signup1.png" width="45%" height="8%" class="center" />
+                        </div>
+            
+         
+            <form>
+                <div class="list">
+                    <ul>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label" style="font-size: 120%; color: black;"><b>Username</b></div>
+                                <div class="item-input-wrap">
+                                    <input type="text" name="username" id="username" placeholder="Username" required validate>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label" style="font-size: 120%; color: black;"><b>Email</b></div>
+                                <div class="item-input-wrap">
+                                    <input type="text" name="email" id="email" class="email" placeholder="Your Email" required validate>
+                                    <span class="input-clear-button"></span>
+          <div class="item-input-info">Please use your utm mail</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="item-link smart-select smart-select-init" data-open-in="popover">
+                                <select name="school">
+                                    <option value="SITE">SITE</option>
+                                    <option value="SBMF">SBMF</option>
+                                    <option value="SHS">SHS</option>
+                                    <option value="SSDT">SSDT</option>
+                                </select>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title" style="font-size: 120%; color: black;"><b>School</b></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="item-link smart-select smart-select-init" data-open-in="popup" data-searchbar="true" data-searchbar-placeholder="Search cohort">
+                                <select name="cohort">
+                                    <optgroup label="SITE">
+                                        <option value="BSE/19A/FT">BSE/19A/FT</option>
+                                        <option value="BWT/19A/FT">BWT/19A/FT</option>
+                                        <option value="BIS/19A/FT">BIS/19A/FT</option>
+                                        <option value="BCNS/19A/FT">BCNS/19A/FT</option>
+                                        <option value="BSE/20A/FT">BSE/20A/FT</option>
+                                        
+                                        <option value="BSE/18B/FT">BSE/18B/FT</option>
+                                        <option value="BWT/19B/FT">BWT/19B/FT</option>
+                                        <option value="BIS/20A/FT">BIS/20A/FT</option>
+                                        <option value="BCNS/19B/FT">BCNS/19B/FT</option>
+                                        <option value="BSE/20A/FT">BSE/20A/FT</option>
+                                    </optgroup>
+                                    <optgroup label="SHS">
+                                        <option value="BGER/19A/FT">BGER/19A/FT</option>
+                                        <option value="BEPH/19A/FT">BEPH/19A/FT</option>
+                                        <option value="DSTCE/19A/FT">DSTCE/19A/FT</option>
+                                        <option value="DBLT/19A/FT">DBLT/19A/FT</option>
+                                        <option value="DPTS/19A/FT">DPTS/19A/FT</option>
+                                        
+                                        <option value="BGER/20A/FT">BGER/20A/FT</option>
+                                        <option value="BEPH/19B/FT">BEPH/19B/FT</option>
+                                        <option value="DSTCE/18A/FT">DSTCE/18A/FT</option>
+                                        <option value="DBLT/18B/FT">DBLT/18B/FT</option>
+                                        <option value="DPTS/20B/FT">DPTS/20B/FT</option>
+                                    </optgroup>
+                                    <optgroup label="SBMF">
+                                        <option value="BFSL/19A/FT">BFSL/19A/FT</option>
+                                        <option value="BEM/19A/FT">BEM/19A/FT</option>
+                                        <option value="BFRM/19A/FT">BFRM/19A/FT</option>
+                                        <option value="BFSG/19A/FT">BFSG/19A/FT</option>
+                                        
+                                        <option value="BFSL/18A/FT">BFSL/18A/FT</option>
+                                        <option value="BEM/20B/FT">BEM/20B/FT</option>
+                                        <option value="BFRM/18B/FT">BFRM/18B/FT</option>
+                                        <option value="BFSG/20A/FT">BFSG/20A/FT</option>
+                                    </optgroup>
+                                    <optgroup label="SSDT">
+                                        <option value="BSUP/19A/FT">BSUP/19A/FT</option>
+                                        <option value="BSEM/19A/FT">BSEM/19A/FT</option>
+                                        <option value="BSMM/19A/FT">BSMM/19A/FT</option>
+                                        <option value="BSS/19A/FT">BSS/19A/FT</option>
+                                        
+                                        <option value="BSUP/18A/FT">BSUP/18A/FT</option>
+                                        <option value="BSEM/20A/FT">BSEM/20A/FT</option>
+                                        <option value="BSMM/18B/FT">BSMM/18B/FT</option>
+                                        <option value="BSS/20B/FT">BSS/20B/FT</option>
+                                    </optgroup>
+                                </select>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title" style="font-size: 120%; color: black;"><b>Cohort</b></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label" style="font-size: 120%; color: black;"><b>Password</b></div>
+                                <div class="item-input-wrap">
+                                    <input type="password" name="password" id="password" placeholder="Your password" required validate>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            <div class="block">
+                    <div class="row">
+                        <div class="col"><button onclick="insert()" class="col button button-large button-raised button-fill color-green">Sign Up</button></div>
+                        <div class="col"><button onclick="clear4()" class="col button button-large button-raised button-fill color-red">Clear</button></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</template>

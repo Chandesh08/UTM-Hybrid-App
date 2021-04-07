@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>UTM</title>
+    <link rel="stylesheet" href="css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="apple-touch-icon" href="img/f7-icon-square.png">
+    <link rel="icon" href="img/f7-icon.png">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/leaflet-search.css" />
+    <link rel="stylesheet" href="css/leaflet-search.mobile.css" />
+    <link rel="stylesheet" href="css/leaflet-routing-machine.css" />
+    <script src="js/leaflet.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/leaflet-search.js"></script>
+    <script src="js/leaflet-routing-machine.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <style>
+        #cover {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0.4542191876750701) 0%, rgba(255, 255, 255, 0.44861694677871145) 50%), url(img/white.gif);
+            background-size: cover;
+            z-index: 9999;
+        }
+
+        #splash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 90%;
+            margin: auto;
+            animation-name: example;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes example {
+            from {
+                bottom: 120%;
+            }
+
+            to {
+                bottom: 0;
+            }
+        }
+
+        #splash1 {
+            position: absolute;
+            top: 65%;
+            left: 10%;
+            right: 10%;
+            bottom: 0;
+            margin: auto;
+            text-align: center;
+            color: black;
+            opacity: 1;
+            animation-name: example1;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes example1 {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .wavy {
+            position: relative;
+            -webkit-box-reflect: below -12px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+        }
+
+        .wavy span {
+            position: relative;
+            display: inline-block;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            color: whitesmoke;
+            animation: animate 1s ease-in-out infinite;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        @media {
+            .wavy span {
+                font-size: 1.3em;
+            }
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0px);
+            }
+
+            20% {
+                transform: translateY(-20px);
+            }
+
+            40%,
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        #lpanel {
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4542191876750701) 0%, rgba(0, 0, 0, 0.44861694677871145) 50%), url(img/ff.gif);
+            background-size: cover;
+        }
+
+        #rpanel {
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4542191876750701) 0%, rgba(0, 0, 0, 0.44861694677871145) 50%), url(img/news.gif);
+            background-size: cover;
+        }
+
+        #login {
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0.5270483193277311) 0%, rgba(255, 255, 255, 0.5130427170868348) 50%), url(img/login.jpg);
+            background-size: cover;
+        }
+
+        /* A bit of demo styles */
+        .demo-swiper .swiper-slide {
+            font-size: 25px;
+            font-weight: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            color: #000;
+        }
+
+        .demo-swiper .swiper-slide {
+            box-sizing: border-box;
+            background-color: transparent;
+        }
+
+        .demo-swiper {
+            margin: 0px 0 35px;
+            font-size: 18px;
+            height: 180px;
+        }
+
+        .demo-swiper.demo-swiper-auto .swiper-slide {
+            width: 85%;
+        }
+
+        .demo-swiper.demo-swiper-auto .swiper-slide:nth-child(2n) {
+            width: 70%;
+        }
+
+        .demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
+            width: 30%;
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+    </style>
+</head>
+
+<body id="themeSelector">
+    <div id="cover">
+        <img id="splash" src="img/utm.png">
+        <h3 id="splash1">Hybrid Mobile Application Design by CHANDESH LILLMOND and LUQMAAN HEETUN </h3>
+    </div>
+
+    <div id="app">
+
+        <div class="panel panel-left panel-cover panel-resizable panel-init">
+            <div class="page" id="lpanel">
+                <div class="page-content theme-dark">
+                    <div class="block">
+                        <image src="img/student.png" width="55%" height="8%" class="center" />
+                        <div class="center" id="status" name="status"></div>
+                    </div>
+                    <div class="block">
+                        <div class="text-primary wavy">
+                            <span style="--i:1;">n</span>
+                            <span style="--i:2;">a</span>
+                            <span style="--i:3;">v</span>
+                            <span style="--i:4;">i</span>
+                            <span style="--i:5;">g</span>
+                            <span style="--i:6;">a</span>
+                            <span style="--i:7;">t</span>
+                            <span style="--i:8;">i</span>
+                            <span style="--i:9;">o</span>
+                            <span style="--i:10;">n</span>
+                            <span style="--i:11;"> </span>
+                            <span style="--i:12;"> </span>
+                            <span style="--i:13;">m</span>
+                            <span style="--i:14;">e</span>
+                            <span style="--i:15;">n</span>
+                            <span style="--i:16;">u</span>
+                        </div>
+                    </div>
+                    <div class="list links-list" style="background-color: transparent;">
+                        <ul style="background-color: transparent;">
+                            <li id="hi">
+                                <a href="/toast/" class="panel-close">Sign Up</a>
+                            </li>
+                            <li id="hi1">
+                                <p><a href="#" class="login-screen-open" data-login-screen=".login-screen">Sign In</a></p>
+                            </li>
+                            <li>
+                                <a href="/pull-to-refresh/" class="panel-close">News</a>
+                            </li>
+                            <li>
+                                <a href="/cards/" class="panel-close">Events</a>
+                            </li>
+                            <li id="ti" style="display:none;">
+                                <a onclick='timetable()' class="panel-close">Download Time Table</a>
+                            </li>
+                            <li id="re" style="display:none;">
+                                <a onclick='resultdown()' class="panel-close">Download Results</a>
+                            </li>
+                            <li>
+                                <a href="/tabs-swipeable/" class="panel-close">Undergraduate</a>
+                            </li>
+                            <li>
+                                <a href="/color-picker/" class="panel-close">Postgraduate</a>
+                            </li>
+                            <li id="qul">
+                                <a href="/action-sheet/" class="panel-close">Contact Us</a>
+                            </li>
+                            <li id="ql" style="display:none;">
+                                <a href="/contacts-list/" class="panel-close">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="/checkbox/" class="panel-close">Location</a>
+                            </li>
+                            <li>
+                                <a href="/buttons/" class="panel-close">About UTM</a>
+                            </li>
+                            <li id="logout" style="display:none;">
+                                <a class="panel-close" onclick="signout()">Sign Out</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <hr />
+                    <div class="block">
+                        <div class="text-primary wavy">
+                            <span style="--i:1;">t</span>
+                            <span style="--i:2;">h</span>
+                            <span style="--i:3;">e</span>
+                            <span style="--i:4;">m</span>
+                            <span style="--i:5;">e</span>
+                        </div>
+                    </div>
+                    <div class="list simple-list" style="background-color: transparent;">
+                        <ul style="background-color: transparent;">
+                            <li>
+                                <span>Dark Mode</span>
+                                <label class="toggle toggle-init color-black">
+                                    <input id="toggle-dark" type="checkbox" />
+                                    <span class="toggle-icon"></span>
+                                </label>
+                            </li>
+                            <li id="red">
+                                <span>Red</span>
+                                <label class="toggle toggle-init color-red">
+                                    <input id="toggle-red" type="checkbox" />
+                                    <span class="toggle-icon"></span>
+                                </label>
+                            </li>
+                            <li id="green">
+                                <span>Green</span>
+                                <label class="toggle toggle-init color-green">
+                                    <input id="toggle-green" type="checkbox" />
+                                    <span class="toggle-icon"></span>
+                                </label>
+                            </li>
+                            <li id="orange">
+                                <span>Orange</span>
+                                <label class="toggle toggle-init color-orange">
+                                    <input id="toggle-orange" type="checkbox" />
+                                    <span class="toggle-icon"></span>
+                                </label>
+                            </li>
+                            <li id="pink">
+                                <span>Pink</span>
+                                <label class="toggle toggle-init color-pink">
+                                    <input id="toggle-pink" type="checkbox" />
+                                    <span class="toggle-icon"></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-right panel-reveal panel-resizable panel-init">
+            <div class="view view-init view-right" data-name="right" data-url="/">
+                <div class="page" id="rpanel">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner sliding">
+                            <div class="title">News</div>
+                        </div>
+                    </div>
+                    <div class="page-content">
+
+                        <div class="block-title theme-dark">Live News Provided By BBC</div>
+                        <div class="block">
+                            <div id="easyPaginate">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view view-init view-main safe-areas" data-master-detail-breakpoint="800" data-url="/">
+            <div class="page page-home">
+
+
+
+
+
+
+                <div class="navbar">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner sliding">
+                        <div class="left">
+                            <a href="#" class="link icon-only panel-open" data-panel="left">
+                                <i class="icon f7-icons if-not-md">menu</i>
+                                <i class="icon material-icons md-only">menu</i>
+                            </a>
+                        </div>
+                        <div class="title">University of Technology</div>
+                        <div class="right">
+                            <a href="#" class="link icon-only panel-open" data-panel="right">
+                                <i class="icon f7-icons if-not-md">exclamationmark_square_fill</i>
+                                <i class="icon material-icons md-only">exclamationmark_square_fill</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="page-content hide-navbar-on-scroll" style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4542191876750701) 0%, rgba(0, 0, 0, 0.44861694677871145) 50%), url(img/white.gif); background-size: cover;">
+
+                    <div class="theme-dark">
+                        <div class="block">
+                            <div>
+                                <image src="img/utm.png" id="glossy" width="100%" height="150px" />
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <p>Welcome to University Of Technology Mauritius Mobile App</p>
+                            <p>The UTM App Provides you mainly with:</p>
+                            <ul>
+                                <li>Events Informations</li>
+                                <li>Recent News</li>
+                                <li>Undergraduate Programmes</li>
+                                <li>Postgraduate Programmes</li>
+                            </ul>
+                        </div>
+                        <div class="block">
+                            <div class="text-primary wavy">
+                                <span style="--i:1;">c</span>
+                                <span style="--i:2;">a</span>
+                                <span style="--i:3;">m</span>
+                                <span style="--i:4;">p</span>
+                                <span style="--i:5;">u</span>
+                                <span style="--i:6;">s</span>
+                                <span style="--i:7;"> </span>
+                                <span style="--i:8;"> </span>
+                                <span style="--i:9;">i</span>
+                                <span style="--i:10;">m</span>
+                                <span style="--i:11;">a</span>
+                                <span style="--i:12;">g</span>
+                                <span style="--i:13;">e</span>
+                                <span style="--i:14;">s</span>
+                            </div>
+
+                        </div>
+                        <div data-speed="400" data-pagination='{"el": ".swiper-pagination"}' data-space-between="50" class="swiper-container swiper-init demo-swiper">
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"><img src="img/utm2.jpeg" width="97%" height="100%"></div>
+                                <div class="swiper-slide"><img src="img/utm3.jpg" width="97%" height="100%"></div>
+                                <div class="swiper-slide"><img src="img/utm4.jpg" width="97%" height="100%"></div>
+                                <div class="swiper-slide"><img src="img/utm5.jpg" width="97%" height="100%"></div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="list media-list" style="background-color: transparent;">
+                            <div class="block">
+                                <div class="text-primary wavy">
+                                    <span style="--i:1;">s</span>
+                                    <span style="--i:2;">c</span>
+                                    <span style="--i:3;">h</span>
+                                    <span style="--i:4;">o</span>
+                                    <span style="--i:5;">o</span>
+                                    <span style="--i:6;">l</span>
+                                    <span style="--i:7;"> </span>
+                                    <span style="--i:8;"> </span>
+                                    <span style="--i:9;">a</span>
+                                    <span style="--i:10;">v</span>
+                                    <span style="--i:11;">a</span>
+                                    <span style="--i:12;">i</span>
+                                    <span style="--i:13;">l</span>
+                                    <span style="--i:14;">a</span>
+                                    <span style="--i:15;">b</span>
+                                    <span style="--i:16;">l</span>
+                                    <span style="--i:17;">e</span>
+                                </div>
+
+                            </div>
+                            <ul style="background-color: transparent;">
+                                <li>
+                                    <a href="/calendar-page/" class="item-link item-content">
+                                        <div class="item item-content">
+                                            <div class="item-media"><img src="img/engineering.jpg" width="80" height="100%" /></div>
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">SITE</div>
+
+                                                </div>
+
+                                                <div class="item-text">School of Innovative Technologies and Engineering</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/calendar/" class="item-link item-content">
+                                        <div class="item item-content">
+                                            <div class="item-media"><img src="img/business.jpg" width="80" height="100%" /></div>
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">SBMF</div>
+
+                                                </div>
+
+                                                <div class="item-text">School of Business, Management and Finance</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/navbar/" class="item-link item-content">
+                                        <div class="item item-content">
+                                            <div class="item-media"><img src="img/health.jpg" width="80" height="100%" /></div>
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">SHS</div>
+
+                                                </div>
+
+                                                <div class="item-text">School of Health Sciences </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/menu/" class="item-link item-content">
+                                        <div class="item item-content">
+                                            <div class="item-media"><img src="img/tourism.jpg" width="80" height="100%" /></div>
+                                            <div class="item-inner">
+                                                <div class="item-title-row">
+                                                    <div class="item-title">SSDT</div>
+
+                                                </div>
+
+                                                <div class="item-text">School of Sustainable Development and Tourism</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="block">
+                            <div class="text-primary wavy">
+                                <span style="--i:1;">r</span>
+                                <span style="--i:2;">e</span>
+                                <span style="--i:3;">c</span>
+                                <span style="--i:4;">e</span>
+                                <span style="--i:5;">n</span>
+                                <span style="--i:6;">t</span>
+                                <span style="--i:7;"> </span>
+                                <span style="--i:8;"> </span>
+                                <span style="--i:9;">n</span>
+                                <span style="--i:10;">e</span>
+                                <span style="--i:11;">w</span>
+                                <span style="--i:12;">s</span>
+                            </div>
+
+                        </div>
+                        <div class="list media-list" style="background-color: transparent;">
+                            <div class="block" id="newsitem1" style="background-color: transparent;">
+
+
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <div class="text-primary wavy">
+                                <span style="--i:1;">r</span>
+                                <span style="--i:2;">e</span>
+                                <span style="--i:3;">c</span>
+                                <span style="--i:4;">e</span>
+                                <span style="--i:5;">n</span>
+                                <span style="--i:6;">t</span>
+                                <span style="--i:7;"> </span>
+                                <span style="--i:8;"> </span>
+                                <span style="--i:9;">e</span>
+                                <span style="--i:10;">v</span>
+                                <span style="--i:11;">e</span>
+                                <span style="--i:12;">n</span>
+                                <span style="--i:13;">t</span>
+                                <span style="--i:14;">s</span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="eventitem1">
+
+                    </div>
+                    <iframe id="timetable" style='display: none;'> </iframe>
+                    <iframe id="ifra" style='display: none;'> </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-screen">
+            <div class="view">
+                <div class="page theme-dark" id="login">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a href="#" class="link login-screen-close" href="#">
+                                    <i class="icon icon-back"></i>
+                                </a>
+                            </div>
+                            <div class="title">University of Technology, Mauritius</div>
+
+                        </div>
+                    </div>
+                    <div class="page-content login-screen-content" style="background-color: transparent;">
+                        <div class="block">
+                            <image src="img/lg.png" width="45%" height="8%" class="center" />
+                        </div>
+                        <div class="login-screen-title">
+                            <h2 style="color: black;">Log In</h2>
+                        </div>
+                        <form>
+                            <div class="list">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label" style="font-size: 120%; color: black;"><b>Username</b></div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="usernamelog" id="usernamelog" placeholder="Your Username">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label" style="font-size: 120%; color: black;"><b>Password</b></div>
+                                            <div class="item-input-wrap">
+                                                <input type="password" name="passwordlog" id="passwordlog" placeholder="Your password">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </form>
+                        <div class="block">
+                            <div class="row">
+                                <div class="col"><button onclick="login()" class="col button button-large button-raised button-fill color-green">Log In</button></div>
+                                <div class="col"><button onclick="clear3()" class="col button button-large button-raised button-fill color-red login-screen-close">Cancel</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/framework7.bundle.min.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        var $$ = Dom7;
+
+        $$('#toggle-dark').on('change', function() {
+            if ($$('#toggle-dark').prop('checked') == true) {
+                $$('body').addClass('theme-dark');
+            } else {
+                $$('body').removeClass('theme-dark');
+            }
+        });
+
+        $$('#toggle-red').on('change', function() {
+            if ($$('#toggle-red').prop('checked') == true) {
+                $$('body').addClass('color-theme-red');
+                jQuery("#green").css({
+                    'display': 'none'
+                });
+                jQuery("#orange").css({
+                    'display': 'none'
+                });
+                jQuery("#pink").css({
+                    'display': 'none'
+                });
+            } else {
+                $$('body').removeClass('color-theme-red');
+                jQuery("#green").css({
+                    'display': 'initial'
+                });
+                jQuery("#orange").css({
+                    'display': 'initial'
+                });
+                jQuery("#pink").css({
+                    'display': 'initial'
+                });
+            }
+        });
+
+        $$('#toggle-green').on('change', function() {
+            if ($$('#toggle-green').prop('checked') == true) {
+                $$('body').addClass('color-theme-green');
+                jQuery("#red").css({
+                    'display': 'none'
+                });
+                jQuery("#orange").css({
+                    'display': 'none'
+                });
+                jQuery("#pink").css({
+                    'display': 'none'
+                });
+            } else {
+                $$('body').removeClass('color-theme-green');
+                jQuery("#red").css({
+                    'display': 'initial'
+                });
+                jQuery("#orange").css({
+                    'display': 'initial'
+                });
+                jQuery("#pink").css({
+                    'display': 'initial'
+                });
+            }
+        });
+        $$('#toggle-orange').on('change', function() {
+            if ($$('#toggle-orange').prop('checked') == true) {
+                $$('body').addClass('color-theme-orange');
+                jQuery("#green").css({
+                    'display': 'none'
+                });
+                jQuery("#red").css({
+                    'display': 'none'
+                });
+                jQuery("#pink").css({
+                    'display': 'none'
+                });
+            } else {
+                $$('body').removeClass('color-theme-orange');
+                jQuery("#green").css({
+                    'display': 'initial'
+                });
+                jQuery("#red").css({
+                    'display': 'initial'
+                });
+                jQuery("#pink").css({
+                    'display': 'initial'
+                });
+            }
+        });
+        $$('#toggle-pink').on('change', function() {
+            if ($$('#toggle-pink').prop('checked') == true) {
+                $$('body').addClass('color-theme-pink');
+                jQuery("#green").css({
+                    'display': 'none'
+                });
+                jQuery("#orange").css({
+                    'display': 'none'
+                });
+                jQuery("#red").css({
+                    'display': 'none'
+                });
+            } else {
+                $$('body').removeClass('color-theme-pink');
+                jQuery("#green").css({
+                    'display': 'initial'
+                });
+                jQuery("#orange").css({
+                    'display': 'initial'
+                });
+                jQuery("#red").css({
+                    'display': 'initial'
+                });
+            }
+        });
+
+        setInterval(myMethod, 5000);
+        setInterval(splashscreen, 4000);
+        setInterval(myMethod1, 19500);
+
+        function myMethod() {
+            //you can reset counter here
+            var swiper = app.swiper.get('.swiper-container');
+            swiper.slideNext();
+        }
+
+        function splashscreen() {
+            jQuery("#cover").css({
+                'display': 'none'
+            });
+        }
+
+        function myMethod1() {
+            var swiper = app.swiper.get('.swiper-container');
+            swiper.slideTo(0, 40, false);
+        }
+
+    </script>
+    <script>
+        $$(document).on('page:init', '.page[data-name="map"]', function(e) {
+            if (navigator.geolocation == undefined) {
+                alert("Geolocation undefined");
+            } else {
+
+                navigator.geolocation.getCurrentPosition(userLocated,
+                    locationError);
+
+                function userLocated(position) {
+                    //var latitude = -20.1769879;
+                    //var longitude = 57.4672583;
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    var mymap = L.map('mapid').setView([-20.1769879, 57.4672583], 16);
+                    var marker = L.marker([-20.1769879, 57.4672583]).addTo(mymap);
+                    var circle = L.circle([-20.1769879, 57.4672583], {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5,
+                        radius: 50
+                    }).addTo(mymap);
+                    marker.bindPopup("<div style='background-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0.4542191876750701) 0%, rgba(255,255,255,0.44861694677871145) 50%), url(img/weather.gif); background-size: cover;'><h3>UTM Location & Weather</h3><hr/><div id='openweathermap-widget-18' style='width: 400px; height: 70px;'></div></div>").openPopup();
+
+                    function onMapClick(e) {
+                        mymap.setView([position.coords.latitude, position.coords.longitude], 15);
+                        //var marker1 = L.marker(e.latlng).addTo(mymap2);
+                        L.Routing.control({
+                            waypoints: [
+                                L.latLng(-20.1769879, 57.4672583),
+                                L.latLng(position.coords.latitude, position.coords.longitude)
+                            ]
+                        }).addTo(mymap);
+                    }
+
+                    mymap.on('click', onMapClick);
+
+
+                    function formatJSON(rawjson) { //callback that remap fields name
+                        var json = {},
+                            key, loc, disp = [];
+
+                        for (var i in rawjson) {
+                            disp = rawjson[i].display_name.split(',');
+
+                            key = disp[0] + ', ' + disp[1];
+
+                            loc = L.latLng(rawjson[i].lat, rawjson[i].lon);
+
+                            json[key] = loc; //key,value format
+                        }
+
+                        return json;
+                    }
+
+                    var mobileOpts = {
+                        url: 'http://nominatim.openstreetmap.org/search?format=json&q={s}',
+                        jsonpParam: 'json_callback',
+                        formatData: formatJSON,
+                        textPlaceholder: 'Search Location..',
+                        autoType: false,
+                        tipAutoSubmit: true,
+                        autoCollapse: false,
+                        autoCollapseTime: 20000,
+                        delayType: 800, //with mobile device typing is more slow
+                        marker: {
+                            icon: true
+                        }
+                    };
+
+                    mymap.addControl(new L.Control.Search(mobileOpts));
+
+
+
+
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                        maxZoom: 19,
+                        attribution: 'Map data &copy;' +
+                            '<a href="https://www.openstreetmap.org/">OpenStreetMap</a>' +
+                            'contributors,<a href="https://creativecommons.org/licenses' +
+                            '/by-sa/2.0/">CC-BY-SA</a>,Imagery © <a href="https://' +
+                            'www.mapbox.com/">Mapbox</a>',
+                        id: 'mapbox.satellite',
+                        accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYyc' +
+                            'XBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+
+                    }).addTo(mymap);
+
+
+                }
+
+
+
+
+                function locationError(error) {
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("Permission Denied- " + error.message);
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("Position Not Available- " + error.message);
+                            break;
+                        case error.TIMEOUT:
+                            alert("Request Time out- " + error.message);
+                            break;
+                    }
+                } //end the function
+            } //end
+
+
+            window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+            window.myWidgetParam.push({
+                id: 18,
+                cityid: '934154',
+                appid: '503b28248d6db53bc71c378722726c55',
+                units: 'metric',
+                containerid: 'openweathermap-widget-18',
+            });
+            (function() {
+                var script = document.createElement('script');
+                script.async = true;
+                script.charset = "utf-8";
+                script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(script, s);
+            })();
+
+
+
+
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        var db = openDatabase("utmDB", '1.0', "My WebSQL Database", 2 * 1024 * 1024);
+
+        
+            db.transaction(function(tx) {
+                tx.executeSql("CREATE TABLE IF NOT EXISTS students(id INT AUTOINCREAMENT, username TEXT, email TEXT, school TEXT, cohort TEXT, password TEXT)");
+            });
+        
+
+        var insert = function() {
+
+
+            var em = $("[name='email']").val();
+
+            if (/@umail.utm.ac.mu\s*$/.test(em)) {
+
+                // set endpoint and your access key
+                var access_key = 'db0d43144ff6b07e3434a883fc842bd9';
+                var email_address = em;
+
+                // verify email address via AJAX call
+                $.ajax({
+                    url: 'http://apilayer.net/api/check?access_key=' + access_key + '&email=' + email_address,
+                    dataType: 'jsonp',
+                    success: function(json) {
+
+                        // Access and use your preferred validation result objects
+                        var format = json.format_valid;
+                        var smtp = json.smtp_check;
+                        if (format && smtp) {
+
+
+
+                            db.transaction(function(tx) {
+                                var user = $("[name='username']").val();
+                                var em = $("[name='email']").val();
+                                var sc = $("[name='school']").val();
+                                var co = $("[name='cohort']").val();
+                                var pass = $("[name='password']").val();
+
+                                var sql = 'INSERT INTO students (username, email, school, cohort, password) VALUES (?,?,?,?,?)';
+                                tx.executeSql(sql, [user, em, sc, co, pass]);
+
+                                var mm = $("[name='email']").val();
+                                var user = $("[name='username']").val();
+                                Email.send({
+                                        Host: "smtp.gmail.com",
+                                        Username: "riverbay06@gmail.com",
+                                        Password: "riverbay_2020",
+                                        To: mm,
+                                        From: "riverbay06@gmail.com",
+                                        Subject: 'UTM Mobile App Registration',
+                                        Body: 'Dear ' + user + ', your registration is successful',
+                                    })
+                                    .then(function(message) {
+                                        $$('.open-alert');
+                                        app.dialog.alert('Register Successful', 'UTM');
+                                    clear4();
+                                    });
+
+                            });
+
+                        } else {
+                            $$('.open-alert');
+                            app.dialog.alert('Email not Valid', 'Email Validation');
+                        }
+
+                    }
+                });
+
+
+
+
+
+            } else {
+                $$('.open-alert');
+                app.dialog.alert('Use your UTM mail', 'Email Validation');
+
+            }
+
+        }
+
+        var login = function() {
+            db.transaction(function(tx) {
+                var user1 = $("[name='usernamelog']").val();
+                var pass1 = $("[name='passwordlog']").val();
+                tx.executeSql('SELECT * FROM students', [], function(tx, results1) {
+                    var len1 = results1.rows.length,
+                        j;
+                    for (j = 0; j < len1; j++) {
+                        if (results1.rows.item(j).username == user1 && results1.rows.item(j).password == pass1) {
+                            $$('.open-alert');
+                            app.dialog.alert('Welcome ' + user1, 'UTM');
+                            //var mainView = app.views.create('.view-main');
+                            //mainView.router.navigate('/toast/');
+                            msg = "<b><span class='center'><h3>Welcome " + user1 + "<h3/></span></b>";
+                            localStorage.setItem("cohort", results1.rows.item(j).cohort);
+                            localStorage.setItem("email", results1.rows.item(j).email);
+                            localStorage.setItem("username", user1);
+                            document.querySelector('#status').innerHTML += msg;
+                            jQuery("#hi").css({
+                                'display': 'none'
+                            });
+                            jQuery("#hi1").css({
+                                'display': 'none'
+                            });
+                            jQuery("#qul").css({
+                                'display': 'none'
+                            });
+                            jQuery(".login-screen").css({
+                                'display': 'none'
+                            });
+                            jQuery("#ql").css({
+                                'display': 'initial'
+                            });
+                            jQuery("#logout").css({
+                                'display': 'initial'
+                            });
+                            jQuery("#ti").css({
+                                'display': 'initial'
+                            });
+                            jQuery("#re").css({
+                                'display': 'initial'
+                            });
+                            app.panel.close(".panel-left", false);
+                            break;
+
+                        } else if (results1.rows.item(j).username !== user1 && results1.rows.item(j).password !== pass1) {
+
+                            $$('.open-alert');
+                            app.dialog.alert('Incorrect Credidential', 'UTM');
+                            break;
+                        }
+                    }
+                }, null);
+            });
+        }
+        
+        
+         
+        var clear3 = function(){
+
+            $("#usernamelog").val("");
+            $("#passwordlog").val("");
+        }
+        
+        var clear4 = function(){
+
+            $("#username").val("");
+            $("#password").val("");
+            $("#email").val("");
+        }
+
+        var signout = function() {
+            //alert("Sign OUt");
+
+            $$('.open-confirm');
+            app.dialog.confirm('Are you sure to sign out?', function() {
+                app.dialog.alert('Signed Out!');
+            });
+
+
+            msg = "";
+            //localStorage.setItem("cohort", results1.rows.item(j).cohort);
+            localStorage.removeItem("cohort");
+            localStorage.removeItem("username");
+            localStorage.removeItem("email");
+            document.querySelector('#status').innerHTML = msg;
+            jQuery("#hi").css({
+                'display': 'initial'
+            });
+            jQuery("#hi1").css({
+                'display': 'initial'
+            });
+            jQuery("#logout").css({
+                'display': 'none'
+            });
+            jQuery("#qul").css({
+                'display': 'initial'
+            });
+            jQuery("#ql").css({
+                'display': 'none'
+            });
+            jQuery("#ti").css({
+                'display': 'none'
+            });
+            jQuery("#re").css({
+                'display': 'none'
+            });
+
+
+        }
+
+        if (localStorage.getItem("cohort") !== null && localStorage.getItem("username") !== null && localStorage.getItem("email") !== null) {
+            //alert("Already logged in");
+            msg = "<b><span class='center'><h3>Welcome " + localStorage.username + "<h3/></span></b>";
+            document.querySelector('#status').innerHTML += msg;
+            msg11 = "Welcome " + localStorage.username;
+            document.querySelector('#splash1').innerHTML = msg11;
+            jQuery("#hi").css({
+                'display': 'none'
+            });
+            jQuery("#hi1").css({
+                'display': 'none'
+            });
+            jQuery("#logout").css({
+                'display': 'initial'
+            });
+            jQuery("#ql").css({
+                'display': 'initial'
+            });
+            jQuery("#qul").css({
+                'display': 'none'
+            });
+            jQuery("#ti").css({
+                'display': 'initial'
+            });
+            jQuery("#re").css({
+                'display': 'initial'
+            });
+
+        } else {
+            //alert("not loggedin");
+            window.setTimeout(timealert, 20000);
+
+            function timealert() {
+                $$('.open-alert');
+                app.dialog.alert("If you are a student log in for a better experience.", 'UTM');
+            }
+
+        }
+
+    </script>
+    <script>
+        var send = function() {
+            var qm = $("[name='qmail']").val();
+            // set endpoint and your access key
+            var access_key = 'db0d43144ff6b07e3434a883fc842bd9';
+            var email_address = qm;
+
+            // verify email address via AJAX call
+            $.ajax({
+                url: 'http://apilayer.net/api/check?access_key=' + access_key + '&email=' + email_address,
+                dataType: 'jsonp',
+                success: function(json) {
+
+                    // Access and use your preferred validation result objects
+                    var format = json.format_valid;
+                    var smtp = json.smtp_check;
+                    if (format && smtp) {
+                        var qm = $("[name='qmail']").val();
+                        var qt = $("[name='qtitle']").val();
+                        var qd = $("[name='qdesc']").val();
+                        Email.send({
+                                Host: "smtp.gmail.com",
+                                Username: "riverbay06@gmail.com",
+                                Password: "riverbay_2020",
+                                To: "chandeshlillmond06@gmail.com",
+                                From: "riverbay06@gmail.com",
+                                Subject: qt,
+                                Body: 'Dear Admin, I am writing you this because of the following queries.<br>' + qd + "<br/>From: " + qm,
+                            })
+                            .then(function(message) {
+                                $$('.open-alert');
+                                app.dialog.alert('Query sent Successfully');
+                            });
+
+
+                    } else {
+                        $$('.open-alert');
+                        app.dialog.alert('Email not Valid');
+                    }
+
+                }
+            });
+        }
+        
+        var clear2 = function(){
+
+            $("#qtitle").val("");
+            $("#qdesc").val("");
+            $("#qmail").val("");
+        }
+
+
+        var sendlg = function() {
+
+
+            var qm1 = localStorage.email;
+            var qt1 = $("[name='qtitle1']").val();
+            var qd1 = $("[name='qdesc1']").val();
+            Email.send({
+                    Host: "smtp.gmail.com",
+                    Username: "riverbay06@gmail.com",
+                    Password: "riverbay_2020",
+                    To: "chandeshlillmond06@gmail.com",
+                    From: "riverbay06@gmail.com",
+                    Subject: qt1,
+                    Body: 'Dear Admin, I am writing you this because of the following queries.<br>' + qd1 + "<br/>From: " + qm1,
+                })
+                .then(function(message) {
+                    $$('.open-alert');
+                    app.dialog.alert('Query sent Successfully', 'UTM');
+                });
+
+        }
+        
+        var clear1 = function(){
+
+            $("#qtitle1").val("");
+            $("#qdesc1").val("");
+        }
+
+    </script>
+    <script>
+        function myFunction1() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("list");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+    <script>
+        function myFunction2() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput2');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("list2");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+    <script>
+        function myFunction3() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput3');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("list3");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+    <script>
+        function myFunction4() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput4');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("list4");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+
+    <script>
+        function resultdown() {
+            // Do something here when page with data-name="about" attribute loaded and initialized
+            $.get("http://localhost:8080/www/services/resultservice.php", function(data, status) {
+                var items = JSON.parse(data);
+
+
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].cohort == localStorage.cohort) {
+                        //msg = "<iframe src='http://localhost:8080/utmadmin/" + items[i].file_name + "' width='100%' height='100%' frameborder='0'> </iframe>" ;
+                        //document.querySelector('#ifra').innerHTML = msg;
+                        $("#ifra").attr("src", "http://localhost:8080/utmadmin/" + items[i].file_name);
+                        break;
+                    } else {
+                        $$('.open-alert');
+                        app.dialog.alert('Results are not available at the moment', 'UTM');
+                        break;
+                    }
+                }
+            });
+
+        }
+
+        function timetable() {
+            // Do something here when page with data-name="about" attribute loaded and initialized
+            $.get("http://localhost:8080/www/services/timetableservice.php", function(data, status) {
+                var item = JSON.parse(data);
+
+
+                for (var i = 0; i < item.length; i++) {
+                    if (item[i].cohort == localStorage.cohort) {
+                        //msg1 = "<iframe src='http://localhost:8080/utmadmin/" + item[i].file_name + "' width='100%' height='100%' type='application/pdf' frameborder='0'> </iframe>" ;
+                        //document.querySelector('#timetable').innerHTML = msg1;
+                        //document.getElementById("#timetable").src="http://localhost:8080/utmadmin/" + item[i].file_name;
+                        $("#timetable").attr("src", "http://localhost:8080/utmadmin/" + item[i].file_name);
+                        break;
+                    } else {
+                        $$('.open-alert');
+                        app.dialog.alert('Time tables are not available at the moment', 'UTM');
+                        break;
+                    }
+                }
+            });
+
+        }
+
+
+
+
+
+        $$(document).on('page:init', '.page[data-name="news"]', function(e) {
+            // Do something here when page with data-name="about" attribute loaded and initialized
+            $.get("http://localhost:8080/www/services/newsservice.php", function(data, status) {
+                var items = JSON.parse(data);
+
+
+                for (var i = 0; i < items.length; i++) {
+                    //msg = "<li><a href='#' class='item-link item-content'><div class='item-inner'><div class='item-title-row'><div class='item-title'>" + items[i].news_title + "</div><div class='item-after'>17:14</div></div><div class='item-text'>" + items[i].news_article + "</div></div></a></li>";
+                    msg = "<h3><li>" + items[i].news_title + "</li></h3><small>" + items[i].news_article + "</small><hr/>";
+                    document.querySelector('#newsitem').innerHTML += msg;
+                }
+            });
+
+        });
+
+        $.get("http://localhost:8080/www/services/newsservice.php", function(data, status) {
+            var items = JSON.parse(data);
+
+
+            for (var i = 0; i < items.length; i++) {
+                msg = "<h3><li>" + items[i].news_title + "</li></h3><p>" + items[i].news_article + "</p><hr/>";
+                document.querySelector('#newsitem1').innerHTML = "";
+                document.querySelector('#newsitem1').innerHTML += msg;
+            }
+        });
+
+    </script>
+
+    <script>
+        $$(document).on('page:init', '.page[data-name="events"]', function(e) {
+            // Do something here when page with data-name="about" attribute loaded and initialized
+            $.get("http://localhost:8080/www/services/eventsservice.php", function(data, status) {
+                var items = JSON.parse(data);
+                for (var i = 0; i < items.length; i++) {
+                    msg1 = "<div class='card demo-card-header-pic'><div style='background:linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4542191876750701) 0%, rgba(0, 0, 0, 0.44861694677871145) 50%),url(img/" + (Math.floor(Math.random() * 4) + 1) + ".gif);background-size: cover;' class='card-header align-items-flex-end'>" + items[i].event_title + " - " + items[i].event_location + "</div><div class='card-content card-content-padding'><p class='date'>Event Date: " + new Date(items[i].event_date) + "</p><p>" + items[i].event_information + "</p></div></div>";
+                    document.querySelector('#eventitem').innerHTML += msg1;
+                }
+            });
+
+        });
+
+        $.get("http://localhost:8080/www/services/eventsservice.php", function(data, status) {
+            var items = JSON.parse(data);
+            for (var i = 0; i < items.length; i++) {
+                msg1 = "<div class='card demo-card-header-pic'><div style='background:linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4542191876750701) 0%, rgba(0, 0, 0, 0.44861694677871145) 50%),url(img/" + (Math.floor(Math.random() * 4) + 1) + ".gif);background-size: cover;' class='card-header align-items-flex-end'>" + items[i].event_title + " - " + items[i].event_location + "</div><div class='card-content card-content-padding'><p class='date'>Event Date: " + new Date(items[i].event_date) + "</p><p>" + items[i].event_information + "</p></div></div>";
+                document.querySelector('#eventitem1').innerHTML = "";
+                document.querySelector('#eventitem1').innerHTML += msg1;
+            }
+        });
+
+    </script>
+    <script>
+        var xmlhttp, myObj, x, j, txt = "";
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                myObj = JSON.parse(this.responseText);
+                for (x in myObj.articles) {
+                    txt += "<div class='card demo-card-header-pic'><div style='background:linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4542191876750701) 0%, rgba(0, 0, 0, 0.44861694677871145) 50%),url(" + myObj.articles[x].urlToImage + "); background-size:cover;' class='card-header align-items-flex-end'>" + myObj.articles[x].title + "</div><div class='card-content card-content-padding'><p class='date'>Posted on " + new Date(myObj.articles[x].publishedAt) + "</p><p>" + myObj.articles[x].description + "</p></div><div class='card-footer'></div></div>"
+                }
+
+                document.getElementById("easyPaginate").innerHTML = txt;
+            }
+        };
+        xmlhttp.open("GET", "http://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=d5d6bfe64b674a0ba8f80677aae61043", true);
+        xmlhttp.send();
+
+    </script>
+</body>
+
+</html>
